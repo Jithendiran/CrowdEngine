@@ -1,0 +1,20 @@
+{%extends 'base.html' %}
+
+{%block head%}
+<div class = "container">
+    <div class="card" style="width: 100%;">
+        <div class="card-header">
+        Movies Title
+        </div>
+        <ul class="list-group list-group-flush">
+
+        {%for i in  range(movie_list|length)%}
+        <li class="list-group-item"> <a href='/crowdengine/{{movie_list[i]}}' style="text-decoration: none; color:black">{{movie_list[i]}}</a></li>
+        {%endfor%}
+
+
+        </ul>
+    </div>
+</div>
+
+{%endblock%}
