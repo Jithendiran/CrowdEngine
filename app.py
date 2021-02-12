@@ -2,7 +2,7 @@ from flask import Flask,render_template,request,url_for,redirect
 import data
 app = Flask(__name__ )
 
-@app.route('')
+@app.route('/')
 @app.route('/crowdengine/')
 def crowdengine():
     return render_template('mainpage.html',movie_list = data.movieslist)
