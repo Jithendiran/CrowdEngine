@@ -3,13 +3,14 @@
  {% block head%}
 
  
- <a class="btn rounded-circle "  style="float: left; margin-top:10% ; margin-left: 3%;" href="/crowdengine/pre?page={{name}}"> <img src={{url_for('static',filename="/icons/caret-left-fill.svg")}} width=100px height = 100px></a>
-    <a class="btn rounded-circle" style="float: right; margin-top:11%;margin-right: 3%;" href= "/crowdengine/next?page={{name}}" > <img src={{url_for('static',filename="/icons/caret-right-fill.svg")}} width=100px height = 100px></a>
-    <div class = "container "   >
-        
  
+    <div class = "container "   >
+         <a class="btn rounded-circle "  style="float: left; margin-top:0% ; margin-left: -4%;" href="/crowdengine/pre?page={{name}}"> <img src={{url_for('static',filename="/icons/caret-left-fill.svg")}} width = 40px height = 40px></a>
+        <a class="btn rounded-circle" style="float: right; margin-top:0%; margin-right: -4%;" href= "/crowdengine/next?page={{name}}" > <img src={{url_for('static',filename="/icons/caret-right-fill.svg")}} width=40px height = 40px></a>
+          <br><br><br>
+  
         <form action='/crowdengine/write' method="POST" >
-            <legend>{{name}}</legend>
+            <center><legend>{{name}}</legend></center>
             </br>
 
             <input type="hidden" name="name" value="{{actor}}">
@@ -52,16 +53,18 @@
                 </label>
               </div>
             </br>
-           
-            <button type="submit" class="btn btn-success">Submit</button>
-
-
+            </br>
+            <center><button type="submit" class="btn btn-success">Submit</button>
+       
+            </center>
               
           </form>
 
-
+   
+  
        
       
     </div>
 
+    
     {%endblock%}
