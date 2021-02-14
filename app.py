@@ -16,7 +16,7 @@ def movie_name(name):
     
     if name not in data.movieslist:
         return render_template('error.html',error="Name Not Found")
-    return render_template('movies.html' ,name = name,actor ="vadivelu")
+    return render_template('movies.html' ,name = name)
 
 @app.errorhandler(500)
 def internal_error(e):
@@ -48,21 +48,21 @@ def write_db():
     
     if request.method == 'POST':
         
-        movie = request.form["movie"]
+        movie = request.form["moviescount"]
         actor = request.form["name"]
-        dur = request.form["Duration"]
-        hair = request.form["Hairstyle"]
-        role = request.form["Role"]
-        hit = request.form["Hit"]
-        color = request.form["Dresscolor"]
-
-        data.write(movie=movie,actor=actor,duration=dur,hairstyle=hair,role=role,dresscolor=color,target=hit)
-
+        dur = request.form["screenduration"]
+        insta = request.form["instagramfollowers"]
+        dress = request.form["dressmatchmeter"]
+        criticscore = request.form["criticscore"]
+        consistency = request.form["consistency"]
+        
+        data.write(movie=movie,actor=actor,duration=dur,insta=insta,dress=dress,consistency=consistency,criticscore=criticscore)
+        
     return render_template('movies.html',p="ok" ,name=movie)
 
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
 
     
