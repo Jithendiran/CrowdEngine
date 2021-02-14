@@ -3,13 +3,13 @@ from pymongo import MongoClient
 
 client = MongoClient("mongodb+srv://pyhackons:pyhackons@cluster0.ajjz3.mongodb.net/crowdengine?retryWrites=true&w=majority")
 db = client['CrowdEngine']
-doc = db['movies']
+doc = db['actress']
 client.close()
 
 
-movieslist = list(doc.find({'Movies': { '$exists': 'true' } },{'Movies':1,'_id':0})) #list(doc.find({'movie': { '$exists': 'true' } },{'movie':1,'_id':0}))
+movieslist = list(doc.find({'Actress Name': { '$exists': 'true' } },{'Actress Name':1,'_id':0})) #list(doc.find({'movie': { '$exists': 'true' } },{'movie':1,'_id':0}))
 
-movieslist = a = [i['Movies'] for i in movieslist]
+movieslist = a = [i['Actress Name'] for i in movieslist]
 size = len(movieslist)
 
 
@@ -29,5 +29,7 @@ def page(pg , index):
 def write(**kwargs):
     client = MongoClient("mongodb+srv://pyhackons:pyhackons@cluster0.ajjz3.mongodb.net/crowdengine?retryWrites=true&w=majority")
     db = client['CrowdEngine']
-    doc = db['movies']     
-    doc.update({'Movies':kwargs['movie']},{ '$set':{'actor':kwargs['actor'],'duration':kwargs['duration'],'role':kwargs['role'],'dresscolor':kwargs['dresscolor'],'target':kwargs['target']} })
+    doc = db['actress']     
+   
+   
+    doc.insert_one({'Actress Name':kwargs['actor'],'Movie Count':kwargs['movie'],'Screen Duration':kwargs['duration'],'Instagram Followers':kwargs['insta'],'Dress match meter':kwargs['dress'],'Consistency':kwargs['consistency'],'Critic Score':kwargs['criticscore']})
