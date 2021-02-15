@@ -7,6 +7,10 @@ app = Flask(__name__ )
 def crowdengine():
     return render_template('mainpage.html',movie_list = data.movieslist)
 
+@app.route('/download/')
+def download():
+    return data.get_csv(a = app)
+
 @app.route('/pyhackons/')
 def pyhackons():
     return render_template('pyhackons.html')
