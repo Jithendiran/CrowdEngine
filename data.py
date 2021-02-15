@@ -10,6 +10,8 @@ client.close()
 movieslist = list(doc.find({'Actress Name': { '$exists': 'true' } },{'Actress Name':1,'_id':0})) #list(doc.find({'movie': { '$exists': 'true' } },{'movie':1,'_id':0}))
 
 movieslist = a = [i['Actress Name'] for i in movieslist]
+movieslist = list(set(movieslist))
+
 size = len(movieslist)
 
 
