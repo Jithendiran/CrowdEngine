@@ -1,4 +1,7 @@
 from pymongo import MongoClient
+import  os
+import pandas as pd
+from flask import send_from_directory
 
 
 client = MongoClient("mongodb+srv://pyhackons:pyhackons@cluster0.ajjz3.mongodb.net/crowdengine?retryWrites=true&w=majority")
@@ -35,4 +38,23 @@ def write(**kwargs):
    
    
     doc.insert_one({'Actress Name':kwargs['actor'],'Movie Count':kwargs['movie'],'Screen Duration':kwargs['duration'],'Instagram Followers':kwargs['insta'],'Dress match meter':kwargs['dress'],'Consistency':kwargs['consistency'],'Critic Score':kwargs['criticscore']})
-    client.close()    
+    client.close()   
+    
+    
+def get_csv(a):
+   
+    client = MongoClient("mongodb+srv://pyhackons:pyhackons@cluster0.ajjz3.mongodb.net/crowdengine?retryWrites=true&w=majority")
+    db = client['CrowdEngine']
+    doc = db['actress_data']  
+    df = list(doc.find({}))
+    df = pd.DataFrame(df)
+    
+    df = df.to_csv('data.csv',index=False)
+    path = os.path.abspath('data.csv')
+    print(path)
+    client.close()
+   
+    #path = path[:-8] or path.replace('data.csv','')
+    path = path.replace('data.csv','')
+    a.config["CLIENT_CSV"] = path
+    return(send_from_directory(a.config["CLIENT_CSV"],filename='data.csv',as_attachment=True) )
