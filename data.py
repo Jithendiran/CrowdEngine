@@ -49,12 +49,12 @@ def get_csv(a):
     df = list(doc.find({}))
     df = pd.DataFrame(df)
     
-    df = df.to_csv('data.csv',index=False)
-    path = os.path.abspath('data.csv')
+    df = df.to_csv('pyhackons-actress-data.csv',index=False)
+    path = os.path.abspath('pyhackons-actress-data.csv')
     print(path)
     client.close()
    
     #path = path[:-8] or path.replace('data.csv','')
-    path = path.replace('data.csv','')
+    path = path.replace('pyhackons-actress-data.csv','')
     a.config["CLIENT_CSV"] = path
-    return(send_from_directory(a.config["CLIENT_CSV"],filename='data.csv',as_attachment=True) )
+    return(send_from_directory(a.config["CLIENT_CSV"],filename='pyhackons-actress-data.csv',as_attachment=True) )
