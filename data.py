@@ -31,7 +31,8 @@ def page(pg , index):
 def write(**kwargs):
     client = MongoClient("mongodb+srv://pyhackons:pyhackons@cluster0.ajjz3.mongodb.net/crowdengine?retryWrites=true&w=majority")
     db = client['CrowdEngine']
-    doc = db['actress']     
+    doc = db['actress_data']       
    
    
     doc.insert_one({'Actress Name':kwargs['actor'],'Movie Count':kwargs['movie'],'Screen Duration':kwargs['duration'],'Instagram Followers':kwargs['insta'],'Dress match meter':kwargs['dress'],'Consistency':kwargs['consistency'],'Critic Score':kwargs['criticscore']})
+    client.close()    
