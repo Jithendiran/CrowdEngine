@@ -58,7 +58,7 @@ def write_db():
         
         data.write(movie=movie,actor=actor,duration=dur,insta=insta,dress=dress,consistency=consistency,criticscore=criticscore)
         
-    return render_template('movies.html',p="ok" ,name=movie)
+    return render_template('movies.html',p="ok" ,name=actor)
 
 
 
