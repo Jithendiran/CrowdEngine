@@ -3,44 +3,40 @@ import  os
 import pandas as pd
 from flask import send_from_directory
 
-
 client = MongoClient("mongodb+srv://pyhackons:pyhackons@cluster0.ajjz3.mongodb.net/crowdengine?retryWrites=true&w=majority")
 db = client['CrowdEngine']
 doc = db['actress']
 client.close()
 
 
-movieslist = list(doc.find({'Actress Name': { '$exists': 'true' } },{'Actress Name':1,'_id':0})) #list(doc.find({'movie': { '$exists': 'true' } },{'movie':1,'_id':0}))
+movieslist = list(doc.find({'Actress Name': { '$exists': 'true' } },{'_id':0})) #list(doc.find({'movie': { '$exists': 'true' } },{'movie':1,'_id':0}))
 
-movieslist = a = [i['Actress Name'] for i in movieslist]
-movieslist = list(set(movieslist))
-
+#movieslist =  [i['Actress Name'] for i in movieslist]
+#movieslist = list(set(movieslist))
 size = len(movieslist)
 
 
 def page(pg , index):
-    
+
+    actname =  [i['Actress Name'] for i in movieslist]
     if pg == 'next':
         if size-1 > index:
-            return movieslist[index+1]
+            return actname[index+1]
         elif size-1 == index:
-            return movieslist[0]
+            return actname[0]
     elif pg == 'pre':
         if index == 0 :
-            return movieslist[size-1]
+            return actname[size-1]
         else:
-            return movieslist[index-1]
+            return actname[index-1]
 
 def write(**kwargs):
     client = MongoClient("mongodb+srv://pyhackons:pyhackons@cluster0.ajjz3.mongodb.net/crowdengine?retryWrites=true&w=majority")
     db = client['CrowdEngine']
-    doc = db['actress_data']       
-   
-   
+    doc = db['actress_data']     
     doc.insert_one({'Actress Name':kwargs['actor'],'Movie Count':kwargs['movie'],'Screen Duration':kwargs['duration'],'Instagram Followers':kwargs['insta'],'Dress match meter':kwargs['dress'],'Consistency':kwargs['consistency'],'Critic Score':kwargs['criticscore']})
-    client.close()   
-    
-    
+    client.close()
+
 def get_csv(a):
    
     client = MongoClient("mongodb+srv://pyhackons:pyhackons@cluster0.ajjz3.mongodb.net/crowdengine?retryWrites=true&w=majority")
@@ -58,3 +54,4 @@ def get_csv(a):
     path = path.replace('pyhackons-actress-data.csv','')
     a.config["CLIENT_CSV"] = path
     return(send_from_directory(a.config["CLIENT_CSV"],filename='pyhackons-actress-data.csv',as_attachment=True) )
+    
