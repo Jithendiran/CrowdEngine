@@ -2,20 +2,38 @@
 {%extends 'base.html' %}
 
 {%block head%}
-<div class = "container">
-    <div class="card" style="width: 100%;transform: none;">
-        <div class="card-header">
-        <h1><center><strong> <i>Actress</i></strong></center></h1>
+
+<style>
+.cd{
+    background-color: rgba(245, 245, 245, 0.2);
+}
+</style>
+<div class="container">
+    <div class="card cd" style="width: 100%;transform: none;">
+        <div class="card-header " style="color:white">
+            <h1><center><strong> <i>Actress</i></strong></center></h1>
         </div>
-        <ul class="list-group list-group-flush">
-
-        {%for i in  range(movie_list|length)%}
-        <li class="list-group-item"> <a href='/crowdengine/{{movie_list[i]}}' style="text-decoration: none; color:black">{{movie_list[i]}}</a></li>
+    <div class="row">
+        
+        {%for i in movie_list%}
+        <div class="col-xxl-3  col-lg-4 col-md-6 col-sm-12 mb-4 " id="img1">
+            <a   href='/crowdengine/{{i["Actress Name"]}}'  style="text-decoration: none; color:black">
+            <div class="card" style="width: 18rem;">
+                <img src="{{i['Image']}}"class="card-img-top " alt="a">
+                <div class="card-body" >
+                
+                    <center>{{i['Actress Name']}}</center>
+                </div>
+            </div>
+        </a>
+        </div>
+    
         {%endfor%}
-
-
-        </ul>
+      
     </div>
+
 </div>
+</div>
+
 
 {%endblock%}
