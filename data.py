@@ -1,87 +1,57 @@
-from flask import Flask,render_template,request,url_for,redirect
-import data
+from pymongo import MongoClient
+import  os
+import pandas as pd
+from flask import send_from_directory
+
+client = MongoClient("mongodb+srv://pyhackons:pyhackons@cluster0.ajjz3.mongodb.net/crowdengine?retryWrites=true&w=majority")
+db = client['CrowdEngine']
+doc = db['actress']
+client.close()
 
 
+movieslist = list(doc.find({'Actress Name': { '$exists': 'true' } },{'_id':0})) #list(doc.find({'movie': { '$exists': 'true' } },{'movie':1,'_id':0}))
+
+#movieslist =  [i['Actress Name'] for i in movieslist]
+#movieslist = list(set(movieslist))
+size = len(movieslist)
 
 
-app = Flask(__name__ )
+def page(pg , index):
 
-actname = [i['Actress Name'] for i in data.movieslist]
+    actname =  [i['Actress Name'] for i in movieslist]
+    if pg == 'next':
+        if size-1 > index:
+            return actname[index+1]
+        elif size-1 == index:
+            return actname[0]
+    elif pg == 'pre':
+        if index == 0 :
+            return actname[size-1]
+        else:
+            return actname[index-1]
 
-@app.route('/')
-@app.route('/crowdengine/')
-def crowdengine():
-    return render_template('mainpage.html',movie_list = data.movieslist)
+def write(**kwargs):
+    client = MongoClient("mongodb+srv://pyhackons:pyhackons@cluster0.ajjz3.mongodb.net/crowdengine?retryWrites=true&w=majority")
+    db = client['CrowdEngine']
+    doc = db['actress_data']     
+    doc.insert_one({'Actress Name':kwargs['actor'],'Movie Count':kwargs['movie'],'Screen Duration':kwargs['duration'],'Instagram Followers':kwargs['insta'],'Dress match meter':kwargs['dress'],'Consistency':kwargs['consistency'],'Critic Score':kwargs['criticscore']})
+    client.close()
 
-@app.route('/download/')
-def download():
-    return data.get_csv(a = app)
-    
-    
-
-@app.route('/pyhackons/')
-def pyhackons():
-    return render_template('pyhackons.html')
-
-@app.route('/crowdengine/<string:name>')
-def movie_name(name):
-    
-    if name not in actname:
-        return render_template('error.html',error="Name Not Found")
-    return render_template('movies.html' ,name = name)
-
-
-@app.route('/crowdengine/pre/')
-def pre():
-    name = request.args.get('page')
-    index = actname.index(name)
-    
-    name = data.page('pre',index)
-    return redirect(url_for('movie_name',name = name) )
-    
+def get_csv(a):
    
-
-@app.route('/crowdengine/next/')
-def next():
-    name = request.args.get('page')
-    index = actname.index(name)
+    client = MongoClient("mongodb+srv://pyhackons:pyhackons@cluster0.ajjz3.mongodb.net/crowdengine?retryWrites=true&w=majority")
+    db = client['CrowdEngine']
+    doc = db['actress_data']  
+    df = list(doc.find({}))
+    df = pd.DataFrame(df)
     
-    name = data.page('next',index)
-    
-    return redirect(url_for('movie_name',name = name))
-
-@app.route('/crowdengine/write/',methods=["POST"])   
-def write_db():
-    
-    if request.method == 'POST':
-        
-        movie = request.form["moviescount"]
-        actor = request.form["name"]
-        dur = request.form["screenduration"]
-        insta = request.form["instagramfollowers"]
-        dress = request.form["dressmatchmeter"]
-        criticscore = request.form["criticscore"]
-        consistency = request.form["consistency"]
-        
-        data.write(movie=movie,actor=actor,duration=dur,insta=insta,dress=dress,consistency=consistency,criticscore=criticscore)
-        
-    return render_template('movies.html',p="ok" ,name=actor)
-
-@app.errorhandler(Exception)
-def handle_exception(e):
-    # pass through HTTP errors
-    
-    return render_template('error.html',error=e )
-    
-
-    
-
-
-
-
-
-
-if __name__ == "__main__":
-    app.run()
-
+    df = df.to_csv('pyhackons-actress-data.csv',index=False)
+    path = os.path.abspath('pyhackons-actress-data.csv')
+    print(path)
+    client.close()
+   
+    #path = path[:-8] or path.replace('data.csv','')
+    path = path.replace('pyhackons-actress-data.csv','')
+    a.config["CLIENT_CSV"] = path
+    return(send_from_directory(a.config["CLIENT_CSV"],filename='pyhackons-actress-data.csv',as_attachment=True) )
     
