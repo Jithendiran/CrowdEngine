@@ -1,70 +1,69 @@
  {%extends 'base.html'%}
 
  {% block head%}
-<center>
-  <div class="container">
- <div class="card " >
+
+<div class = "container d-flex justify-content-center"> 
+  <div class="card  " style="transform: none; width:30rem ;transition:none;" >
   <div class="card-body">
  
-
-  <a class="btn rounded-circle "  style="float: left; margin-top:0% ; margin-left: -4%;" href="/crowdengine/pre?page={{name}}"> <img src={{url_for('static',filename="/icons/caret-left-fill.svg")}} width = 40px height = 40px></a>
-  <a class="btn rounded-circle" style="float: right; margin-top:0%; margin-right: -4%;" href= "/crowdengine/next?page={{name}}" > <img src={{url_for('static',filename="/icons/caret-right-fill.svg")}} width=40px height = 40px></a>
-    <br><br><br>
+    <a class="btn rounded-circle "  style="float: left; margin-top:0% ;" href="/crowdengine/pre?page={{name}}"> <img src={{url_for('static',filename="/icons/caret-left-fill.svg")}} style="width : 40px; height : 40px"></a>
+    <a class="btn rounded-circle" style="float: right; margin-top:0%; margin-right: 0%;" href= "/crowdengine/next?page={{name}}" > <img src={{url_for('static',filename="/icons/caret-right-fill.svg")}} style="width : 40px; height : 40px"></a>
+     
+  <br><br><br>
          
-   
+          
           <form action='/crowdengine/write' method="POST"  >
-              <center><legend class="card-title"><strong>{{name}}</strong></legend></center>
+              <legend class="card-title d-flex justify-content-center"><strong>{{name}}</strong></legend>
               </br>
   
               
               <input type="hidden" name="name" value="{{name}}">
   
-              <div class="form-group  text-left ">
-                <label for="Moviescount">Moviescount</label>
-                <input type="number" class="form-control" id="moviescount"  name="moviescount" placeholder="Enter  Moviescount ">
+              <div class="form-group ">
+                <label  for="moviescount">Moviescount</label>
+                <input type="number" class="form-control " id="moviescount"  name="moviescount" placeholder="Enter  Moviescount ">
                 
               </div>
-  
-              <div class="form-group text-left">
-                <label for="screenduration">Screen Duration</label>
+            </br>
+              <div class="form-group  ">
+                <label  for="screenduration">Screen Duration</label>
                 <input type="number" class="form-control" id="screenduration"  name="screenduration" placeholder="Enter Screen Duration in minutes">
               </div>
-  
-              <div class="form-group text-left ">
-                  <label for="instagramfollowers">Instagram Followers</label>
+            </br>
+              <div class="form-group  ">
+                  <label   for="instagramfollowers">Instagram Followers</label>
                   <input type="number" class="form-control" id="instagramfollowers"  name= "instagramfollowers" placeholder="Enter Instagram Followers in k">
               </div>
-  
-              <div class="form-group text-left">
-                  <label for="dressmatchmeter">Dress Match Meter</label>
+            </br>
+              <div class="form-group ">
+                  <label   for="dressmatchmeter">Dress Match Meter</label>
                   <input type="number" class="form-control" id="dressmatchmeter" name="dressmatchmeter" placeholder="Enter Dress Match Meter ">
               </div>
-  
-              <div class="form-group text-left">
-                <label for="consistency">Consistency</label>
+            </br>
+              <div class="form-group ">
+                <label  for="consistency">Consistency</label>
                 <input type="number" class="form-control" id="consistency" name="consistency" placeholder="Enter Consistency ">
             </div>
-  
-            <div class="form-group text-left">
-              <label for="criticscore">Critic Score</label>
+          </br>
+            <div class="form-group ">
+              <label  for="criticscore">Critic Score</label>
               <input type="number" class="form-control" id="criticscore" name="criticscore" placeholder="Enter Critic Score ">
           </div>
             
               
-             
+        </br>
              
              <center> <button type="submit" class="btn btn-success">Submit</button></center>
                 
             </form>
-  
-  
-  
-  
+          
+         
          
           </div>      
      
 </div>
+
 </div>
 
-</center>   
+  
     {%endblock%}
