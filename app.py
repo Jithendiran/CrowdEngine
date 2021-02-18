@@ -73,8 +73,11 @@ def handle_exception(e):
     
     return render_template('error.html',error=e )
     
+@app.route('/table')
+def table():
+    data1 = data.table()
+    return render_template('table.html',data=data1,view=True)
 
-    
 
 
 
