@@ -54,4 +54,11 @@ def get_csv(a):
     path = path.replace('pyhackons-actress-data.csv','')
     a.config["CLIENT_CSV"] = path
     return(send_from_directory(a.config["CLIENT_CSV"],filename='pyhackons-actress-data.csv',as_attachment=True) )
-    
+   
+def table():
+    client = MongoClient("mongodb+srv://pyhackons:pyhackons@cluster0.ajjz3.mongodb.net/crowdengine?retryWrites=true&w=majority")
+    db = client['CrowdEngine']
+    doc = db['actress_data']
+    data1 = list(doc.find({},{'_id':0}) )
+
+    return data1
