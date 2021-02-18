@@ -40,11 +40,18 @@ body{
   </head>
   <body >
     <nav class="navbar"  >
-       
+      
         
-        <a class="navbar-brand" style="font-family:Bahnschrift Condensed; color:rgb(255, 255, 255)" href='/crowdengine' ><i><h2>Crowd Engine</h2></i></a>
-        <a class="navbar-brand" style="font-family:Bahnschrift Condensed; color:rgb(255, 255, 255)" href="/pyhackons"><i><h2>PyHackons</h2></i></a>
-    </nav>
+      <a class="navbar-brand" style="font-family:Bahnschrift Condensed; color:rgb(255, 255, 255)" href='/crowdengine' ><i><h2>Crowd Engine</h2></i></a>
+      
+      {%if view%}
+    <a href="/download"> <img src="{{url_for('static',filename='/icons/download.svg')}}" style="height:40px;width:40px;margin-left:20px; "></a>
+    {%endif%}
+        
+        <a  style="font-family:Bahnschrift Condensed; color:rgb(255, 255, 255);text-decoration: none;" href="/pyhackons"><i><h2>PyHackons</h2></i></a>
+      
+
+  </nav>
     
       
     </br>
