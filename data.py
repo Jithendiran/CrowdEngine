@@ -60,5 +60,5 @@ def table():
     db = client['CrowdEngine']
     doc = db['actress_data']
     data1 = list(doc.find({},{'_id':0}) )
-
+    client.close()
     return data1
